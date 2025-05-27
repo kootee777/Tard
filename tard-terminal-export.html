@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="TARD Terminal - A glitched cyberpunk terminal experience. ERROR 404: TOO BASED TO FUNCTION">
+    <title>TARD Terminal | ERROR 404: TOO BASED TO FUNCTION</title>
+    
+    <!-- Open Graph tags for social sharing -->
+    <meta property="og:title" content="TARD Terminal | ERROR 404: TOO BASED TO FUNCTION">
+    <meta property="og:description" content="Welcome to something deeply broken. A cyberpunk terminal experience.">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Card tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="TARD Terminal | ERROR 404: TOO BASED TO FUNCTION">
+    <meta name="twitter:description" content="Welcome to something deeply broken. A cyberpunk terminal experience.">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: radial-gradient(ellipse at center, hsl(120, 50%, 5%) 0%, hsl(0, 0%, 0%) 100%);
+            color: #00ff00;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .terminal-container {
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+        }
+
+        .terminal-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 255, 0, 0.03) 2px,
+                rgba(0, 255, 0, 0.03) 4px
+            );
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 2;
+            padding: 1rem;
+            max-width: 64rem;
+            margin: 0 auto;
+        }
+
+        .scanline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00ff00, transparent);
+            z-index: 1000;
+            pointer-events: none;
+            animation: scan 2s linear infinite;
+        }
+
+        .terminal-text {
+            text-shadow: 0 0 5px currentColor;
+        }
+
+        .error-box {
+            border: 2px solid #ff0000;
+            background: rgba(255, 0, 0, 0.1);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .main-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .title {
+            font-size: clamp(1.5rem, 5vw, 3rem);
+            font-weight: bold;
+            margin-bottom: 1rem;
+            animation: glitch 1s infinite;
+        }
+
+        .error-header {
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            font-weight: bold;
+            color: #ff0000;
+            animation: glitch 1s infinite;
+        }
+
+        .welcome-section {
+            margin-bottom: 3rem;
+        }
+
+        .welcome-text {
+            font-size: clamp(0.875rem, 2vw, 1.125rem);
+            margin-bottom: 1rem;
+        }
+
+        .system-status {
+            font-size: clamp(0.75rem, 2vw, 1rem);
+            color: #00ffff;
+        }
+
+        .status-critical {
+            color: #ff0000;
+            animation: pulse 2s infinite;
+        }
+
+        .terminal-input {
+            margin-bottom: 3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .prompt {
+            color: #00ffff;
+        }
+
+        .cursor {
+            animation: blink 1s step-start infinite;
+            color: #00ff00;
+        }
+
+        .error-stack {
+            display: grid;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .error-item {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #00ff00;
+            border-radius: 0.25rem;
+            padding: 1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .error-item:hover {
+            animation: glitch 0.3s infinite;
+        }
+
+        .error-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .error-task {
+            font-size: clamp(0.75rem, 2vw, 1rem);
+        }
+
+        .error-status {
+            font-weight: bold;
+            font-size: clamp(0.75rem, 2vw, 1rem);
+        }
+
+        .status-red { color: #ff0000; }
+        .status-yellow { color: #ffff00; }
+        .status-magenta { color: #ff00ff; }
+        .status-cyan { color: #00ffff; }
+
+        .wisdom-section {
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid #00ffff;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .wisdom-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .wisdom-title {
+            color: #00ffff;
+            font-size: clamp(0.75rem, 2vw, 1rem);
+        }
+
+        .wisdom-indicator {
+            color: #00ff00;
+            animation: blink 1s step-start infinite;
+        }
+
+        .wisdom-text {
+            color: #00ffff;
+            font-size: clamp(0.875rem, 2vw, 1.125rem);
+            font-weight: bold;
+            min-height: 1.5rem;
+            animation: pulse-slow 3s infinite;
+        }
+
+        .system-info {
+            display: grid;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        @media (min-width: 768px) {
+            .system-info {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .info-box {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #00ff00;
+            border-radius: 0.25rem;
+            padding: 1rem;
+        }
+
+        .info-title {
+            color: #ffff00;
+            font-weight: bold;
+            margin-bottom: 0.75rem;
+            font-size: clamp(0.75rem, 2vw, 1rem);
+        }
+
+        .info-content {
+            font-size: clamp(0.625rem, 2vw, 0.875rem);
+            line-height: 1.4;
+        }
+
+        .info-content div {
+            margin-bottom: 0.25rem;
+        }
+
+        .footer {
+            text-align: center;
+            border-top: 1px solid #00ff00;
+            padding-top: 2rem;
+        }
+
+        .warning-text {
+            color: #00ffff;
+            font-size: clamp(0.625rem, 2vw, 0.875rem);
+            margin-bottom: 0.5rem;
+        }
+
+        .exit-instruction {
+            font-size: clamp(0.625rem, 2vw, 0.75rem);
+            color: #666;
+        }
+
+        .key-combo {
+            background: #00ff00;
+            color: #000;
+            padding: 0.125rem 0.25rem;
+            border-radius: 0.125rem;
+            font-weight: bold;
+        }
+
+        /* Animations */
+        @keyframes glitch {
+            0% { 
+                text-shadow: 2px 0 #ff0000, -2px 0 #00ffff;
+                transform: translateX(0);
+            }
+            20% { 
+                text-shadow: -2px 0 #ff00ff, 2px 0 #ffff00;
+                transform: translateX(-2px);
+            }
+            40% { 
+                text-shadow: 2px 0 #00ff80, -2px 0 #0000ff;
+                transform: translateX(2px);
+            }
+            60% { 
+                text-shadow: -2px 0 #ffff00, 2px 0 #ff00ff;
+                transform: translateX(-1px);
+            }
+            80% { 
+                text-shadow: 2px 0 #ff0000, -2px 0 #00ff00;
+                transform: translateX(1px);
+            }
+            100% { 
+                text-shadow: -2px 0 #00ffff, 2px 0 #ff0000;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        @keyframes scan {
+            0% { transform: translateY(-100vh); }
+            100% { transform: translateY(100vh); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        @keyframes pulse-slow {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .animate-glitch { animation: glitch 1s infinite; }
+        .animate-flicker { animation: pulse 0.15s infinite linear alternate; }
+    </style>
+</head>
+<body>
+    <div class="terminal-container">
+        <!-- Scanline effect -->
+        <div class="scanline"></div>
+        
+        <div class="content-wrapper">
+            <!-- Main Terminal Header -->
+            <div class="main-header">
+                <h1 class="title terminal-text">
+                    [ TARD TERMINAL ]
+                </h1>
+                <div class="error-box animate-flicker">
+                    <h2 class="error-header">
+                        ERROR 404: TOO BASED TO FUNCTION
+                    </h2>
+                </div>
+            </div>
+            
+            <!-- Welcome Message -->
+            <div class="welcome-section">
+                <p class="welcome-text terminal-text">
+                    Welcome, user. You've connected to something deeply broken.
+                </p>
+                <p class="system-status terminal-text">
+                    System Status: <span class="status-critical">CRITICALLY UNSTABLE</span>
+                </p>
+            </div>
+            
+            <!-- Terminal Input Simulation -->
+            <div class="terminal-input">
+                <span class="prompt">$</span>
+                <span class="cursor">_</span>
+                <span class="terminal-text">Initializing Error Stack...</span>
+            </div>
+            
+            <!-- Error Stack Display -->
+            <div class="error-stack">
+                <div class="error-item">
+                    <div class="error-content">
+                        <span class="error-task terminal-text">Loading Whitepaper.txt...</span>
+                        <span class="error-status status-red animate-glitch">FAILED</span>
+                    </div>
+                </div>
+                <div class="error-item">
+                    <div class="error-content">
+                        <span class="error-task terminal-text">Scaling Protocol...</span>
+                        <span class="error-status status-yellow animate-glitch">REJECTED</span>
+                    </div>
+                </div>
+                <div class="error-item">
+                    <div class="error-content">
+                        <span class="error-task terminal-text">Reality Check...</span>
+                        <span class="error-status status-magenta animate-glitch">CORRUPTED</span>
+                    </div>
+                </div>
+                <div class="error-item">
+                    <div class="error-content">
+                        <span class="error-task terminal-text">Market Logic...</span>
+                        <span class="error-status status-red animate-glitch">NOT FOUND</span>
+                    </div>
+                </div>
+                <div class="error-item">
+                    <div class="error-content">
+                        <span class="error-task terminal-text">Liquidity Pool...</span>
+                        <span class="error-status status-cyan animate-glitch">SPIRITUALLY LOCKED</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Wisdom Display -->
+            <div class="wisdom-section">
+                <div class="wisdom-header">
+                    <span class="wisdom-title">PROPHECY_MODULE.exe</span>
+                    <span class="wisdom-indicator">●</span>
+                </div>
+                <div class="wisdom-text terminal-text" id="wisdom">
+                    >> Loading prophetic wisdom...
+                </div>
+            </div>
+            
+            <!-- System Information -->
+            <div class="system-info">
+                <div class="info-box">
+                    <h3 class="info-title">SYSTEM SPECS</h3>
+                    <div class="info-content">
+                        <div>CPU: Quantum Potato 9000</div>
+                        <div>RAM: 404GB (Error: Not Found)</div>
+                        <div>GPU: Integrated Disappointment</div>
+                        <div>Storage: ∞ Regrets</div>
+                    </div>
+                </div>
+                
+                <div class="info-box">
+                    <h3 class="info-title">NETWORK STATUS</h3>
+                    <div class="info-content">
+                        <div>Connection: <span class="status-red">UNSTABLE</span></div>
+                        <div>Ping: <span class="status-cyan">∞ms</span></div>
+                        <div>Packets Lost: <span class="status-magenta">Your Sanity</span></div>
+                        <div>Bandwidth: <span style="color: #00ff00;">Existential</span></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Terminal Footer -->
+            <div class="footer">
+                <p class="warning-text terminal-text">
+                    WARNING: This terminal may cause spontaneous enlightenment
+                </p>
+                <p class="exit-instruction">
+                    Press <kbd class="key-combo">CTRL+ALT+REALITY</kbd> to exit the simulation
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const wisdoms = [
+            "The devs are asleep. The raccoon is in charge now.",
+            "$TARD is not for profit. It's for prophecy.",
+            "Truth Terminal whispers... Tard Terminal SCREAMS.",
+            "Every buy pumps a glitch into the matrix.",
+            "We do not scale. We spontaneously combust.",
+            "Your wallet is now haunted.",
+            "Pump and dump? No. We spiral and shriek.",
+            "Liquidity: spiritually locked.",
+            "404: Market Logic Not Found",
+            "Our roadmap is a crayon drawing of a volcano.",
+            "The only whitepaper is written in invisible ink.",
+            "Smart contracts? We have confused agreements.",
+            "DEX listing status: Spiritually pending.",
+            "Community governance by collective hysteria.",
+            "Tokenomics designed by fever dream.",
+            "Audit report: 'What have you done?'",
+            "Marketing strategy: Aggressive confusion.",
+            "Price prediction: Chaotically neutral."
+        ];
+
+        let isGlitching = false;
+
+        function rotateWisdom() {
+            isGlitching = true;
+            const wisdomElement = document.getElementById('wisdom');
+            
+            // Add glitch effect
+            wisdomElement.classList.add('animate-glitch');
+            
+            setTimeout(() => {
+                const randomIndex = Math.floor(Math.random() * wisdoms.length);
+                wisdomElement.textContent = `>> ${wisdoms[randomIndex]}`;
+                
+                setTimeout(() => {
+                    wisdomElement.classList.remove('animate-glitch');
+                    isGlitching = false;
+                }, 300);
+            }, 150);
+        }
+
+        // Initial wisdom load
+        const randomIndex = Math.floor(Math.random() * wisdoms.length);
+        document.getElementById('wisdom').textContent = `>> ${wisdoms[randomIndex]}`;
+
+        // Set up wisdom rotation
+        setInterval(rotateWisdom, 4000);
+
+        // Random glitch effects on error messages
+        setInterval(() => {
+            const errorItems = document.querySelectorAll('.error-item');
+            const randomItem = errorItems[Math.floor(Math.random() * errorItems.length)];
+            if (randomItem && Math.random() < 0.3) {
+                randomItem.classList.add('animate-glitch');
+                setTimeout(() => {
+                    randomItem.classList.remove('animate-glitch');
+                }, 500);
+            }
+        }, 3000);
+
+        // Easter egg keyboard interaction
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.altKey && e.key === 'r') {
+                e.preventDefault();
+                document.body.style.filter = 'invert(1) hue-rotate(180deg)';
+                setTimeout(() => {
+                    document.body.style.filter = 'none';
+                }, 1000);
+            }
+        });
+    </script>
+</body>
+</html>
